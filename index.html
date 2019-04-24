@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Delphine</title>
+    <style>
+        #delphine-canvas {
+            position: relative;
+            left: 35%;
+            top: 200px;
+            transform: rotate(20deg);
+        }
+    </style>
+    <script>
+        // image: https://www.google.com/search?q=%D0%B4%D0%B5%D0%BB%D1%8C%D1%84%D0%B8%D0%BD&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjrwJfG5ubhAhXulYsKHYqYA3oQ_AUIDigB&biw=1375&bih=725#imgrc=PS4YgIZPSvzoHM:
+        function Delphine(options) {
+
+            const delphineWrapper = document.getElementById("delphine-wrapper");
+            const domElement = document.createElement("canvas");
+            domElement.width = 400;
+            domElement.height = 280;
+            domElement.id = "delphine-canvas";
+            delphineWrapper.appendChild(domElement);
+
+            let canvas = document.getElementById("delphine-canvas");
+            canvas = canvas.getContext("2d");
+
+            function drawDelphineBody() {
+                canvas.fillStyle = options.color;
+                canvas.fillRect(100, 100, options.length, options.height);
+            }
+
+            function drawDelphineHead() {
+                // canvas.fillStyle = options.color;
+                canvas.beginPath();
+                var x = 100; // x coordinate
+                var y = 110 + options.height / 2 - 10; // y coordinate
+                var radius = options.height / 2; // Arc radius
+                var startAngle = 0; // Starting point on circle
+                var endAngle = Math.PI * 4; // End point on circle
+                canvas.arc(x, y, radius, startAngle, endAngle, true);
+                canvas.fill();
+                canvas.closePath();
+
+                function drawDelphineTeeth() {
+                    canvas.strokeStyle = options.color;
+                    canvas.beginPath();
+                    canvas.moveTo(30, 150);
+                    canvas.lineTo(100, 140);
+                    canvas.lineTo(80, 170);
+                    canvas.lineTo(20, 170);
+                    canvas.lineTo(30, 149);
+                    canvas.lineTo(60, 140);
+                    canvas.fill();
+                    canvas.closePath();
+
+                    function drawDelphineEyes() {
+                        canvas.fillStyle = "white";
+                        canvas.beginPath();
+                        var x2 = 78;
+                        var y2 = 88 + (options.height / 2);
+                        var endAngle2 = Math.PI * 4;
+                        canvas.arc(x2, y2, 8, 0, endAngle2, true);
+                        canvas.fill();
+                        canvas.closePath();
+                    }
+
+                    drawDelphineEyes();
+                }
+
+                drawDelphineTeeth();
+            }
+
+            function drawDelphineHands() {
+                canvas.fillStyle = "skyblue";
+                canvas.beginPath();
+                canvas.moveTo(140, 140);
+                canvas.lineTo(170, 190);
+                canvas.lineTo(140, 220);
+                canvas.fill();
+                canvas.closePath();
+            }
+
+            drawDelphineBody();
+            drawDelphineHead();
+            drawDelphineHands();
+        }
+
+        setTimeout(() => Delphine({
+            color: "skyblue",
+            height: 80,
+            length: 200
+        }), 1000);
+    </script>
+</head>
+<body>
+<div id="delphine-wrapper"></div>
+</body>
+</html>
